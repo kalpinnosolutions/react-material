@@ -15,46 +15,46 @@ const ContactDetails = ({formData}) => {
             <Grid item xs={12} >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <TextField disabled id="outlined-disabled" fullWidth  label="Address 1"  defaultValue={(formData?.address1)? formData?.address1 : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth  label="Address 1"  value={(formData?.address1)? formData?.address1 : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Address 2"  defaultValue={(formData?.address2)? formData?.address2 : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Address 2"  value={(formData?.address2)? formData?.address2 : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Address 3"  defaultValue={(formData?.address3)? formData?.address3 : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Address 3"  value={(formData?.address3)? formData?.address3 : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="City"  defaultValue={(formData?.city?.value)? formData?.city?.value : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="City"  value={(formData?.city?.value)? formData?.city?.value : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Pincode"  defaultValue={(formData?.pincode)? formData?.pincode : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Pincode"  value={(formData?.pincode)? formData?.pincode : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="State"  defaultValue={(formData?.state?.value)? formData?.state?.value : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="State"  value={(formData?.state?.value)? formData?.state?.value : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Country"  defaultValue={(formData?.country?.value)? formData?.lastName?.value : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Country"  value={(formData?.country?.value)? formData?.lastName?.value : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Phn(H)"  defaultValue={(formData?.phoneHome)? formData?.phoneHome : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Phn(H)"  value={(formData?.phoneHome)? formData?.phoneHome : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Phn(o)"  defaultValue={(formData?.phoneOffice)? formData?.phoneOffice : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Phn(o)"  value={(formData?.phoneOffice)? formData?.phoneOffice : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Mobile"  defaultValue={(formData?.mobile)? formData?.mobile : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Mobile"  value={(formData?.mobile)? formData?.mobile : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Email ID"  defaultValue={(formData?.email)? formData?.email : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Email ID"  value={(formData?.email)? formData?.email : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Passport No"  defaultValue={(formData?.passportNo)? formData?.passportNo : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Passport No"  value={(formData?.passportNo)? formData?.passportNo : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Exp. Dt"  defaultValue={(formData?.expiryDate)? formData?.expiryDate : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Exp. Dt"  value={(formData?.expiryDate)? formData?.expiryDate : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Place Of Issue"  defaultValue={(formData?.placeOfIssue)? formData?.placeOfIssue : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Place Of Issue"  value={(formData?.placeOfIssue)? formData?.placeOfIssue : '-'} sx={disabled}/>
                     </Grid>
                 </Grid>
             </Grid>

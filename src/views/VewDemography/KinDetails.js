@@ -15,16 +15,16 @@ const KinDetails = ({formData}) => {
             <Grid item xs={12} >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <TextField disabled id="outlined-disabled" fullWidth  label="Last Name"  defaultValue={(formData?.lastNameKin)? formData?.lastNameKin : '-'} sx={disabled}/>
+                        <TextField  id="outlined" fullWidth  label="Last Name"  value={(formData?.lastNameKin)? formData?.lastNameKin : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="First Name"  defaultValue={(formData?.firstNameKin)? formData?.firstNameKin : '-'} sx={disabled}/>
+                        <TextField  id="outlined" fullWidth label="First Name"  value={(formData?.firstNameKin)? formData?.firstNameKin : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Middle Name"  defaultValue={(formData?.middleNameKin)? formData?.middleNameKin : '-'} sx={disabled}/>
+                        <TextField  id="outlined" fullWidth label="Middle Name"  value={(formData?.middleNameKin)? formData?.middleNameKin : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField disabled id="outlined-disabled" fullWidth label="Relation"  defaultValue={(formData?.relation)? formData?.relation : '-'} sx={disabled}/>
+                        <TextField  id="outlined" fullWidth label="Relation"  value={(formData?.relation)? formData?.relation : '-'} sx={disabled}/>
                     </Grid>
                 </Grid>
             </Grid>

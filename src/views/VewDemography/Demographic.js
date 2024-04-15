@@ -4,7 +4,7 @@ import image from '../../assets/images/login/female_icon_new.png';
 import React, { useEffect, useState } from "react";
 
 const disabled = {
-    "& .MuiTableCell-root.Mui-disabled": {
+    "& .MuiInputBase-input.Mui-disabled": {
         WebkitTextFillColor: "#000000a1 !important",
     },
 }
@@ -50,31 +50,31 @@ const Demographic = (props) => {
                 <Grid item xs={8} >
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
-                            <TextField disabled id="outlined-disabled" fullWidth label="Title"
-                                defaultValue={(data?.title) ? data?.title : '-'}
+                            <TextField id="outlined" fullWidth label="Title"
+                                value={formData.title}
                              sx={disabled}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField disabled id="outlined-disabled" fullWidth label="Last Name"
-                                defaultValue={(data?.lastName) ? data?.lastName : '-'}
+                            <TextField id="outlined" fullWidth label="Last Name"
+                                value={(data?.lastName) ? data?.lastName : '-'}
                                 sx={disabled}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField disabled id="outlined-disabled" fullWidth label="First Name"
-                                defaultValue={(data?.firstName) ? data?.firstName : '-'}
+                            <TextField id="outlined" fullWidth label="First Name"
+                                value={(data?.firstName) ? data?.firstName : '-'}
                                 sx={disabled}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField disabled id="outlined-disabled" fullWidth label="Middle Name" defaultValue={(data?.middleName) ? data?.middleName : '-'} sx={disabled} />
+                            <TextField id="outlined" fullWidth label="Middle Name" value={(data?.middleName) ? data?.middleName : '-'} sx={disabled} />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField disabled id="outlined-disabled" fullWidth label="Gender" defaultValue={(data?.gender.label) ? data?.gender.label : '-'} sx={disabled} />
+                            <TextField id="outlined" fullWidth label="Gender" value={(data?.gender.label) ? data?.gender.label : '-'} sx={disabled} />
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField disabled id="outlined-disabled" fullWidth label="Birth Date" defaultValue={(data?.birthDate) ? data?.birthDate : '-'} sx={disabled}/>
+                            <TextField id="outlined" fullWidth label="Birth Date" value={(data?.birthDate) ? data?.birthDate : '-'} sx={disabled}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <TextField disabled id="outlined-disabled" fullWidth label="Age" defaultValue={(data?.age) ? data?.age : '-'} sx={disabled}/>
+                            <TextField id="outlined" fullWidth label="Age" value={(data?.age) ? data?.age : '-'} sx={disabled}/>
                         </Grid>
                     </Grid>
                 </Grid>

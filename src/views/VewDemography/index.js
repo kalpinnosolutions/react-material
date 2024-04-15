@@ -306,6 +306,7 @@ const Dashboard = () => {
   const handleSocialData = (data) => {
     dispatch(setSocialDetailsData(data));
   };
+  
 
   return (
     <Grid container spacing={gridSpacing}>
