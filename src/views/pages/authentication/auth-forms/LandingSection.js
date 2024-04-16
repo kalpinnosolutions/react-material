@@ -28,7 +28,7 @@ const FirebaseLogin = () => {
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
  const LoginLink = config.basename+'/login';
- const RegisterLink = config.basename+'/register';
+ const RegisterLink = '/register';
 
   return (
     <>

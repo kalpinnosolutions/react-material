@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 
@@ -10,11 +11,28 @@ import HistoryIcon from '@mui/icons-material/History';
 import UpcomingIcon from '@mui/icons-material/Upcoming';
 // import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
+const primBtn = {
+  backgroundColor: "#2F3490", color: "#fff", '&:hover': {
+    background: "#17a54ac9",
+  }
+}
+
+const primBtnSelected = {
+  backgroundColor: "#17A54A", color: "#fff", '&:hover': {
+    background: "#17a54ac9",
+  }
+}
+
+
 // ==============================|| CUSTOM SUB CARD ||============================== //
 
 const BookingCard = forwardRef(({ children, content, contentClass, darkTitle, secondary, sx = {}, contentSX = {}, title, ...others }, ref) => {
   const theme = useTheme();
+  const [activeBtn, setActiveBtn] = useState('upcoming');
 
+  const onClickBtn = (btn) => {
+    setActiveBtn(btn)
+  }
   return (
     <Card
       ref={ref}
@@ -35,7 +53,11 @@ const BookingCard = forwardRef(({ children, content, contentClass, darkTitle, se
               variant="outlined"
               startIcon={<UpcomingIcon />}
               sx={{ float: 'left' }}
-              onClick={() => others.btnoneaction('upcoming')}
+              onClick={() => {
+                others.btnoneaction('upcoming')
+                onClickBtn('upcoming')
+              }}
+              style={activeBtn === 'upcoming' ? primBtnSelected : primBtn }
             >
               {others.btn3title}
             </PrimeGreenButton>
@@ -43,7 +65,11 @@ const BookingCard = forwardRef(({ children, content, contentClass, darkTitle, se
               variant="outlined"
               startIcon={<HistoryIcon />}
               sx={{ float: 'left' }}
-              onClick={() => others.btntwoaction('history')}
+              onClick={() => {
+                others.btnoneaction('history')
+                onClickBtn('history')
+              }}
+              style={activeBtn === 'history' ? primBtnSelected : primBtn }
             >
               {others.btn1title}
             </PrimeGreenButton>

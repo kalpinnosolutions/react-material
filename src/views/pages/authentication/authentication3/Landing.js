@@ -1,23 +1,45 @@
 
 
 // material-ui
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 
 // project imports
-import AuthWrapper1 from '../AuthWrapper1';
 
 import LandingSection from '../auth-forms/LandingSection';
 
-import AuthFooter from 'ui-component/cards/AuthFooter';
+// import AuthFooter from 'ui-component/cards/AuthFooter';
 
 import BackGroundImg from '../../../../assets/images/login/bgimg.jpg';
 
-import Box from '@mui/material/Box';
-import Marquee from "react-fast-marquee";
+
 
 import React, { useEffect, useCallback, useState } from "react";
 import { getPanelTextList } from "../../../../assets/data";
+import CustomLoader from '../../../../ui-component/CustomLoader';
+// import Marquee from "react-fast-marquee";
 
+
+import AuthWrapper1 from '../AuthWrapper1';
+
+const boxStyle = {
+  marginTop: "30%",
+  height: "320px",
+  width: "320px",
+  display: "flex",
+  alignItems: "center",
+  padding: "2px",
+  textAlign: "left"
+}
+
+const boxStyle2 = {
+  marginTop: "30%",
+  height: "320px",
+  width: "320px",
+  display: "flex",
+  alignItems: "center",
+  padding: "12px",
+  textAlign: "left"
+}
 
 // assets
 
@@ -26,11 +48,13 @@ import { getPanelTextList } from "../../../../assets/data";
 const Login = () => {
   const [rightPanelText, setRightPanelText] = useState("");
   const [leftPanelText, setleftPanelText] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const fetchPanelData = useCallback(async () => {
 
 
     try {
+      setLoading(false)
       const rightpanelTextList = await getPanelTextList('R');
       const leftpanelTextList = await getPanelTextList('L');
 
@@ -42,11 +66,16 @@ const Login = () => {
         setleftPanelText(leftpanelTextList?.ReturnData)
       }
 
+      console.log(rightPanelText)
+      console.log(leftPanelText)
+
+      setLoading(false)
 
     } catch (error) {
+      setLoading(false)
       console.error("Error fetching patient data:", error);
     }
-    
+
   }, []);
 
   useEffect(() => {
@@ -55,46 +84,36 @@ const Login = () => {
 
   return (
     <AuthWrapper1>
-      <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '70vh', backgroundImage: `url(${BackGroundImg})`, backgroundSize: '100% 100%', backgroundPosition: "center", backgroundRepeat: "no-repeat, repeat" }} >
-        <Box sx={{
-          display: 'flex', p: 2, bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
-          color: (theme) =>
-            theme.palette.mode === 'dark' ? 'red' : 'red',
-          borderColor: (theme) =>
-            theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-          fontSize: '0.875rem',
-          fontWeight: '700',
-        }}
-        >
-          <Marquee>
-            {rightPanelText}
-          </Marquee>
-        </Box>
-        <Grid item xs={12}>
-          <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 140px)' }}>
+      <Grid container direction="row" sx={{ minHeight: '100vh', backgroundImage: `url(${BackGroundImg})`, backgroundSize: '100% 100%', backgroundPosition: "center", backgroundRepeat: "no-repeat, repeat" }} >
+        <Grid item xs={4}>
+          <Box style={boxStyle2} >
+            <div className="marquee-container">
+              <div className="marquee" style={{ color: "#fff", backgroundColor: '#06ae92d4', fontSize: "18px", lineHeight: "30px" }}>
+              {(rightPanelText !== "")? rightPanelText.replace(/\n/g, ". ") : ""}
+              </div>
+            </div>
+          </Box>
+        </Grid>
+        <Grid item xs={4}>
+          <Grid container justifyContent="center" alignItems="center" sx={{ minHeight: 'calc(100vh - 68px)' }}>
             <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
               <LandingSection />
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
-          <AuthFooter />
+        <Grid item xs={4}>
+          <Box style={boxStyle} >
+            <div className="marquee-container">
+              <div className="marquee" style={{ color: "#fff", backgroundColor: '#06ae92d4', fontSize: "18px", lineHeight: "30px" }}>
+              {(leftPanelText !== "")? leftPanelText.replace(/\n/g, ". ") : ""}
+              </div>
+            </div>
+          </Box>
         </Grid>
+
       </Grid>
-      <Box sx={{
-        display: 'flex', p: 2, mb:1,  bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
-        color: (theme) =>
-          theme.palette.mode === 'dark' ? 'red' : 'red',
-        borderColor: (theme) =>
-          theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-        fontSize: '0.875rem',
-        fontWeight: '700',
-      }}
-      >
-        <Marquee pauseOnHover={true} pauseOnClick={true} direction={"left"} loop={0}>
-          {leftPanelText}
-        </Marquee>
-      </Box>
+
+      {loading && (<CustomLoader />)}
     </AuthWrapper1>
   );
 };

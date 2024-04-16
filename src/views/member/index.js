@@ -191,37 +191,12 @@ function Member() {
       return error;
     }
   };
-  /* 
-
-   
-
-   
-
-   function convertDateFormat(inputDateString) {
-       const inputDate = new Date(inputDateString);
-
-       const year = inputDate.getFullYear();
-       const month = (inputDate.getMonth() + 1).toString().padStart(2, "0");
-       const day = inputDate.getDate().toString().padStart(2, "0");
-
-       const hours = inputDate.getUTCHours().toString().padStart(2, "0");
-       const minutes = inputDate.getUTCMinutes().toString().padStart(2, "0");
-
-       return `${year}${month}${day}T${"12"}${"00"}Z`;
-   }
-
-   const calculateAge = (dateString) => {
-       const birthDate = parseISO(dateString);
-       const currentDate = new Date();
-       const age = differenceInYears(currentDate, birthDate);
-       return age;
-   };
-   */
 
   //REFRESH BUTTON
   const refreshList = () => {
     fetchData();
   }
+
 
   return (
     <ButtonCard title="Family Members" btn1title="Add Member" btn2title="Refresh" btnoneaction={handleOpenContactModal} btntwoaction={refreshList}>

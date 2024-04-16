@@ -16,6 +16,7 @@ import "react-calendar/dist/Calendar.css";
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import CancelIcon from '@mui/icons-material/Cancel';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 
 // material-ui
 // import { useNavigate } from "react-router-dom";
@@ -637,6 +638,25 @@ const Dashboard = () => {
     setSelectedSlotDetails(slotDetails);
   };
 
+  const CheckStatus = (status) => {
+    let changeStatus = status;
+    switch (status) {
+      case "Tentative":
+        changeStatus = <Chip label={status} size="small" color="primary" />;
+        break;
+      case "Confirmed":
+        changeStatus = <Chip label={status} size="small" color="success" />;
+        break;
+      case "Rescheduled":
+        changeStatus = <Chip label={status} size="small" color="warning" />;
+        break;
+      case "Cancelled":
+        changeStatus = <Chip label={status} size="small" color="error" />;
+        break;
+    }
+    return changeStatus;
+  }
+
   const AppointmentCard = (appointment) => {
 
     const toggleSelection = (target = "") => {
@@ -650,10 +670,38 @@ const Dashboard = () => {
       <Grid item xs={3} >
         <Card sx={{ border: 2, borderColor: '#17A54A' }}>
           <CardContent sx={{ p: 1 }}>
-            <Typography gutterBottom variant="h5" component="div" sx={{ pt: 2, fontSize: 'h4.fontSize' }}>
-              App Date: {format(parsedDate, "dd-MM-yyyy HH:mm:ss")}
-            </Typography>
-            <Typography variant="body2" sx={{ fontSize: 'h4.fontSize', fontWeight: '500' }}>
+            <Stack direction="row" alignItems="center" gap={1}>
+              <EventAvailableIcon />
+              <Typography gutterBottom variant="h5" component="div" sx={{ pt: 1, fontSize: 'h4.fontSize' }}>
+                {format(parsedDate, "dd-MM-yyyy HH:mm:ss")}
+              </Typography>
+            </Stack>
+            <table style={{ marginTop: "5px" }}>
+              <tbody>
+                <tr>
+                  <th align="left" style={{ fontWeight: '500' }}>App Req No</th>
+                  <th align="left" style={{ fontWeight: '600' }}>: {appointment.ApptReqNo.toString()}</th>
+                </tr>
+                <tr>
+                  <th align="left" style={{ fontWeight: '500' }}>App No</th>
+                  <th align="left" style={{ fontWeight: '600' }}>: {appointment.ApptNo.toString()}</th>
+                </tr>
+                <tr>
+                  <th align="left" style={{ paddingRight: "10px", fontWeight: '500' }}>App Type</th>
+                  <th align="left" style={{ fontWeight: '600' }}>: {appointment.ApptTypDesc}</th>
+                </tr>
+                <tr>
+                  <th align="left" style={{ fontWeight: '500' }}>Appt Status</th>
+                  <th align="left" style={{ fontWeight: '600' }}>: {
+                    appointment.ApptStsDesc === "Reschedule"
+                      ? "RE"
+                      : appointment.ApptStsDesc === "Cancel"
+                        ? "Can"
+                        : CheckStatus(appointment.ApptStsDesc)}</th>
+                </tr>
+              </tbody>
+            </table>
+            {/* <Typography variant="body2" sx={{ fontSize: 'h4.fontSize', fontWeight: '500' }}>
               <Typography sx={{ fontSize: 'h5.fontSize', fontWeight: '500' }}>App Req No: {appointment.ApptReqNo.toString()} </Typography>
               <Typography sx={{ fontSize: 'h5.fontSize', fontWeight: '500' }}>App No: {appointment.ApptNo.toString()}</Typography>
               <Typography sx={{ fontSize: 'h5.fontSize', fontWeight: '500' }}>App Type: {appointment.ApptTypDesc}</Typography>
@@ -663,7 +711,7 @@ const Dashboard = () => {
                   : appointment.ApptStsDesc === "Cancel"
                     ? "Cancelled"
                     : appointment.ApptStsDesc}</Typography>
-            </Typography>
+            </Typography> */}
           </CardContent>
           <CardActions spacing={1} sx={{ p: 1 }}>
             <Typography gutterBottom variant="h5" component="div" sx={{ pt: 2, fontSize: 'h4.fontSize', width: '80%', fontWeight: 800, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>

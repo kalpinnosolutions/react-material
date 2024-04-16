@@ -306,7 +306,7 @@ const Dashboard = () => {
   const handleSocialData = (data) => {
     dispatch(setSocialDetailsData(data));
   };
-  
+
 
   return (
     <Grid container spacing={gridSpacing}>
@@ -316,7 +316,7 @@ const Dashboard = () => {
             <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
               <TabContext value={tabValue} aria-label="Tabs where selection follows focus" selectionFollowsFocus centered variant="fullWidth">
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                  <TabList onChange={handleChange} aria-label="lab API tabs example">
+                  <TabList onChange={handleChange} centered aria-label="lab API tabs example">
                     <Tab label="Demographic Details" value="demographic" />
                     <Tab label="Contact Details" value="contact" />
                     <Tab label="Social Details" value="social" />

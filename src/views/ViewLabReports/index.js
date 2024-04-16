@@ -176,8 +176,8 @@ const Dashboard = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar style={{ justifyContent: 'center' }} color="secondary">
+        <AppBar position="static" sx={{ borderRadius: "12px" }}>
+          <Toolbar style={{ justifyContent: 'center' }} color="#fff">
             <Box display="flex" justifyContent="center" alignItems="center" sx={inputClass}>
               <InputLabel style={{ color: "#fff", paddingRight: "10px", paddingLeft: "10px", fontWeight: "600", fontSize: '0.875rem' }}> Report from </InputLabel>
               <DatePicker

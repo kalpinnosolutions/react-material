@@ -1,4 +1,4 @@
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useState } from "react";
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,15 +12,20 @@ import { styled } from '@mui/material/styles';
 import { fetchRefund } from "../../assets/data";
 import { useSelector } from "react-redux";
 import CustomLoader from '../../ui-component/CustomLoader';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import ReportModal from './ReportModal';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import Button from '@mui/material/Button';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
     },
     [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
+        fontSize: 14,
     },
 }));
 
@@ -30,11 +35,11 @@ const REFUND = () => {
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [loading, setLoading] = useState(false);
-    // const [pdfData, setPdfData] = useState("");
-    // const [isOpen, setIsOpen] = useState(false);
-    const userData = useSelector((state) => state?.userData.userData);
     const [rowData, setRowData] = useState([]);
+    const [pdfData, setPdfData] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const userData = useSelector((state) => state.userData.userData);
 
 
     const columns = [
@@ -78,15 +83,15 @@ const REFUND = () => {
             align: 'right',
         },
         {
-            id: 'view',
+            id: 'Report',
             label: 'Report',
             minWidth: 100,
             align: 'right',
         }
     ];
 
-    function createData(IPOPFlg, IPNO, BILLNO, BILLDT, BILLAMT, ReceiptDate, ReceiptNo, ReceiptAMT, view) {
-        return {IPOPFlg, IPNO, BILLNO, BILLDT, BILLAMT, ReceiptDate, ReceiptNo, ReceiptAMT, view};
+    function createData(BILLAMT, BILLDT, BILLNO, CSHDEPTCD, FREEFLG, IPNO, IPOPFlg, PharmaAmt, PharmaBillType, PharmaCntrCd, PharmaCrtDtTm, PharmaDoca, PharmaDocn, PharmaDt, PharmaPayMode, PharmaStoreCd, PharmaTyp, PharmaTypCd, ReceiptAMT, ReceiptDate, ReceiptNo, VCHCHRGCD, WINGCD, YR, Report) {
+        return { BILLAMT, BILLDT, BILLNO, CSHDEPTCD, FREEFLG, IPNO, IPOPFlg, PharmaAmt, PharmaBillType, PharmaCntrCd, PharmaCrtDtTm, PharmaDoca, PharmaDocn, PharmaDt, PharmaPayMode, PharmaStoreCd, PharmaTyp, PharmaTypCd, ReceiptAMT, ReceiptDate, ReceiptNo, VCHCHRGCD, WINGCD, YR, Report };
     }
 
     // const rows = [];
@@ -103,61 +108,63 @@ const REFUND = () => {
     useEffect(() => {
         (async () => {
             setLoading(true)
-          try {
-            const ptnNo = userData?.PtnNo;
-            const refundData = await fetchRefund(ptnNo);
-    
-            if (!Array.isArray(refundData)) {
-                setLoading(false);
-              console.error("Error::", refundData);
-              return;
-            }
-    
-            const formattedRefundData = refundData.map((item) => ({
-              ...item,
-              IPOPFlg: item?.IPOPFlg === "O" ? "OP" : "IP",
-              BILLDT: new Date(item.BILLDT).toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-              }),
-              ReceiptDate: new Date(item.ReceiptDate).toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-              }),
-            }));
-    
-            let TableData = [];
-            if (formattedRefundData.length > 0) {
-                formattedRefundData.map((item) => {
-                    TableData.push(createData(item.IPOPFlg, item.IPNO, item.BILLNO, item.BILLDT, item.BILLAMT, item.ReceiptDate, item.ReceiptNo, item.ReceiptAMT, item.FREEFLG));
-                })
-            }
+            try {
+                const ptnNo = userData?.PtnNo;
+                const refundData = await fetchRefund(ptnNo);
 
-            if(TableData.length > 0 ){
-                setRowData(TableData)
+                if (!Array.isArray(refundData)) {
+                    setLoading(false);
+                    console.error("Error::", refundData);
+                    return;
+                }
+
+                const formattedRefundData = refundData.map((item) => ({
+                    ...item,
+                    IPOPFlg: item?.IPOPFlg === "O" ? "OP" : "IP",
+                    BILLDT: new Date(item.BILLDT).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                    }),
+                    ReceiptDate: new Date(item.ReceiptDate).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                    }),
+                }));
+
+                let TableData = [];
+                if (formattedRefundData.length > 0) {
+                    formattedRefundData.map((item) => {
+                        TableData.push(createData(item.BILLAMT, item.BILLDT, item.BILLNO, item.CSHDEPTCD, item.FREEFLG, item.IPNO, item.IPOPFlg, item.PharmaAmt, item.PharmaBillType, item.PharmaCntrCd, item.PharmaCrtDtTm, item.PharmaDoca, item.PharmaDocn, item.PharmaDt, item.PharmaPayMode, item.PharmaStoreCd, item.PharmaTyp, item.PharmaTypCd, item.ReceiptAMT, item.ReceiptDate, item.ReceiptNo, item.VCHCHRGCD, item.WINGCD, item.YR, null));
+                    })
+                }
+
+                if (TableData.length > 0) {
+                    setRowData(TableData)
+                }
+                setLoading(false)
+            } catch (error) {
+                setLoading(false)
+                console.error("Error fetching bill data:", error);
             }
-            setLoading(false)
-          } catch (error) {
-            setLoading(false)
-            console.error("Error fetching bill data:", error);
-          }
-          setLoading(false);
+            setLoading(false);
         })();
-      }, []);
-    
-    //   const handleGeneratePdf = async (rowData) => {
-    //     setLoading(true);
-    //     const ptnNo = userData?.PtnNo;
-    
-    //     const res = await fetchDepositPDF(ptnNo, rowData, "Refund");
-    
-    //     setPdfData(res);
-    //     setIsOpen(true);
-    //     setIsOpen(true);
-    //     setLoading(false);
-    //   };
+    }, []);
+
+    const handleGeneratePdf = async (rowData) => {
+        setLoading(true);
+        const ptnNo = userData?.PtnNo;
+        const res = await fetchbillPDF(ptnNo, rowData);
+        console.log(res);
+        setPdfData(res);
+        setIsOpen(true);
+        setLoading(false);
+    };
+
+    const handleUploadCloseClick = () => {
+        setIsOpen(false);
+    }
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -177,7 +184,7 @@ const REFUND = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {rowData.length > 0 ? (
+                        {rowData.length > 0 ? (
                             rowData
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row) => {
@@ -189,19 +196,36 @@ const REFUND = () => {
                                                     <TableCell key={column.id} align={column.align}>
                                                         {column.format && typeof value === 'number'
                                                             ? column.format(value)
-                                                            : value}
+                                                            : column.id !== 'Report' ? value
+                                                                : <Button onClick={() => handleGeneratePdf(row)}><Tooltip title="View"><IconButton><DescriptionOutlinedIcon /></IconButton></Tooltip></Button>
+                                                        }
                                                     </TableCell>
                                                 );
                                             })}
                                         </TableRow>
                                     );
-                            })
-                    ) : (
-                        <TableRow><TableCell colSpan={9}>No Records Found</TableCell></TableRow>
-                    )}
+                                })
+                        ) : (
+                            <TableRow><TableCell colSpan={9}>No Records Found</TableCell></TableRow>
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>
+            <ReportModal
+                isOpen={isOpen}
+                onClose={handleUploadCloseClick}
+                height="100%"
+                width="100%"
+            >
+                {pdfData && (
+                    <iframe
+                        src={`data:application/pdf;base64,${pdfData}`}
+                        title="PDF Viewer"
+                        width="100%"
+                        height="100%"
+                    />
+                )}
+            </ReportModal>
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100]}
                 component="div"
@@ -212,8 +236,8 @@ const REFUND = () => {
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
             {loading && (
-                    <CustomLoader/>
-                )}
+                <CustomLoader />
+            )}
         </Paper>
     );
 }

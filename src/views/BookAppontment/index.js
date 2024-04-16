@@ -250,6 +250,7 @@ const Dashboard = () => {
             <TextField
               {...params}
               label=""
+              placeholder='Search for doctors or departments'
               InputProps={{
                 ...params.InputProps,
                 type: 'search',

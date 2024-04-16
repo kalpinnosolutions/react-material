@@ -16,7 +16,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Stack from '@mui/material/Stack'
 
 import { styled } from '@mui/material/styles';
-import Image2 from '../../assets/images/login/female.png';
+import Image2 from '../../assets/images/login/doctor.png';
 import { Grid, Modal, Box, Link, Chip, TextField } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { toast } from "react-toastify";
@@ -53,8 +53,8 @@ const CustomTypography = styled(Typography)(({ theme }) => ({
   padding: theme.spacing(0.2),
   textAlign: 'center',
   fontWeight: 600,
-  fontSize: '20px',
-  color: theme.palette.text.secondary,
+  fontSize: '16px',
+  color: theme.palette.text.primary,
 }));
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -71,14 +71,14 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "35%",
+  width: "38%",
   height: "100%",
   maxHeight: "550px",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   display: 'block',
-  overflow: 'scroll',
+  overflowY: 'scroll',
   p: 4,
 };
 
@@ -807,17 +807,17 @@ const DoctorsCard = ({ searchedDoctores, childIsLoading }) => {
       {searchedDoctores && searchedDoctores.length > 0 && (
         searchedDoctores.map((doctor, index) => (
           <>
-            <Grid item xs={3} key={index}>
+            <Grid item xs={3} key={index} elevation={24}>
               <Card sx={{ maxWidth: 320, minHeight: 340 }} >
                 <CardMedia
-                  sx={{ height: 300, objectFit: "content", width: "100%", maxHeight: "300px" }}
+                  sx={{ height: 250, objectFit: "content", width: "100%", maxHeight: "280px" }}
                   image={Image2}
                   title={doctor?.label}
                 />
                 <CardContent>
                   <CustomTypography gutterBottom component="div" color="secondary">{doctor?.label}</CustomTypography>
                   {/* <Typography sx={{ textAlign: 'center', pb: 2 }} variant="h5" color="text.secondary">MD, D.M (Cardiology), MNAMS</Typography> */}
-                  <Typography sx={{ textAlign: 'center' }} variant="h4" color="text.secondary">{doctor?.SpltyName}</Typography>
+                  <Typography sx={{ textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="h5" color="text.secondary" >{doctor?.SpltyName}</Typography>
                 </CardContent>
                 <CardActions style={{ justifyContent: 'center' }}>
                   <Stack direction="row" spacing={2}>
@@ -923,11 +923,11 @@ const DoctorsCard = ({ searchedDoctores, childIsLoading }) => {
                         timeSlots?.length > 0 &&
                         selectedTime >= 0 && (
                           <>
-                            <Typography id="modal-modal-description" sx={{ textAlign: 'left', mt: 2 }} >
+                            <Typography id="modal-modal-description" sx={{ textAlign: 'center', mt: 2 }} >
                               Amount to be paid: {slote}.0
                             </Typography>
 
-                            <Typography id="modal-modal-description" sx={{ textAlign: 'left' }}>
+                            <Typography id="modal-modal-description" sx={{ textAlign: 'center' }}>
                               Selected Appointment Date: &nbsp;
                               {format(
                                 new Date(date),
@@ -942,8 +942,7 @@ const DoctorsCard = ({ searchedDoctores, childIsLoading }) => {
                                 ?.toString()
                                 .padStart(2, "0")})
                             </Typography>
-
-                            <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3, width: "100%" }}>
+                            <Box sx={{ display: "flex", justifyContent: "center", mt: 3, width: "100%" }}>
                               <Stack direction="row" spacing={1}>
                                 <Button variant="contained" style={{ justifyContent: "flex-start" }} onClick={() => handleBooking()}>
                                   Book Appointment Only
@@ -1005,7 +1004,7 @@ function ChildModal({ selectedDoctor, handleBookAppointmentClick, isModalBookOpe
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '30%',
+    width: '35%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,

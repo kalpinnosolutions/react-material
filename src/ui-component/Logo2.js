@@ -9,7 +9,7 @@
  *
  */
 
-import logo from '../assets/images/gknm-logo-2.svg';
+import logo from '../assets/images/gknm-logo-2.png';
 
 // ==============================|| LOGO SVG ||============================== //
 

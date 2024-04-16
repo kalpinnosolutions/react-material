@@ -9,7 +9,7 @@
  *
  */
 
-import logo from '../assets/images/gknm-logo-2.svg';
+import logo from '../assets/images/gknm-logo-2.png';
 
 // ==============================|| LOGO SVG ||============================== //
 
@@ -66,7 +66,7 @@ const Logo = () => {
     //   />
     // </svg>
 
-    <img src={logo} alt="GKNM" width="95" />
+    <img src={logo} alt="GKNM" width="120" />
   );
 };
 

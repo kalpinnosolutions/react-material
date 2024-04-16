@@ -26,7 +26,7 @@ export default function Logout() {
 
       dispatch(setUserData(""));
       window.history.replaceState(null, null, "/");
-      navigate("/login");
+      navigate("/");
   });
 
   return(
