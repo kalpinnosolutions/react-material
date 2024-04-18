@@ -9,6 +9,10 @@ import LogoSection from '../LogoSection';
 // import SearchSection from './SearchSection';
 // import ProfileSection from './ProfileSection';
 import NotificationSection from './NotificationSection';
+// import { Link } from 'react-router-dom';
+// import Stack from '@mui/material/Stack';
+// import LogoutIcon from '@mui/icons-material/Logout';
+// import Tooltip from '@mui/material/Tooltip';
 
 // assets
 // import { IconMenu2 } from '@tabler/icons-react';
@@ -63,6 +67,13 @@ const Header = () => {
       {/* notification & profile */}
       <NotificationSection />
       {/* <ProfileSection /> */}
+      {/* <Stack direction="row">
+        <Link fullWidth size="small" variant="contained" component={Link} to="/logout">
+          <Tooltip title="Logout">
+            <LogoutIcon sx={{ width: "25px", marign: "15px" }} />
+          </Tooltip>
+        </Link>
+      </Stack> */}
     </>
   );
 };

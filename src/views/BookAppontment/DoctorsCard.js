@@ -73,7 +73,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: "38%",
   height: "100%",
-  maxHeight: "550px",
+  maxHeight: "620px",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -224,9 +224,9 @@ const DoctorsCard = ({ searchedDoctores, childIsLoading }) => {
 
   const onChangeCalander = async (selectedDate) => {
 
-    setShowSlot(false);
     setTimeSlots([])
     setSelectedTime(null);
+    setShowSlot(false);
 
     const bodyData = {
       todayDate: formatDateString(selectedDate),
@@ -244,8 +244,8 @@ const DoctorsCard = ({ searchedDoctores, childIsLoading }) => {
       setDate(selectedDate);
       setSelectedTime(null);
       // handleAdjustedDate(selectedDate);
-      setShowSlot(false);
       setTimeSlots([])
+      setShowSlot(false);
 
 
       toast.error(isAppAllowed?.ReturnMsg, {
@@ -280,7 +280,10 @@ const DoctorsCard = ({ searchedDoctores, childIsLoading }) => {
         setDate(selectedDate);
         setSelectedTime(null);
         handleAdjustedDate(selectedDate);
-        setShowSlot(!item?.RecordSaved);
+
+        setTimeout(() => {
+          setShowSlot(!item?.RecordSaved);
+        }, 2000);
       }
 
 
@@ -810,7 +813,7 @@ const DoctorsCard = ({ searchedDoctores, childIsLoading }) => {
             <Grid item xs={3} key={index} elevation={24}>
               <Card sx={{ maxWidth: 320, minHeight: 340 }} >
                 <CardMedia
-                  sx={{ height: 250, objectFit: "content", width: "100%", maxHeight: "280px" }}
+                  sx={{ height: 340, objectFit: "content", width: "100%", maxHeight: "280px" }}
                   image={Image2}
                   title={doctor?.label}
                 />
@@ -860,7 +863,7 @@ const DoctorsCard = ({ searchedDoctores, childIsLoading }) => {
                     </Stack>
                   </Box>
 
-                  {showSlot && (
+                  {showSlot ? (
                     <>
                       <Grid container direction="row" spacing={{ xs: 1, md: 1 }} columns={{ xs: 6, sm: 8, md: 10 }} sx={{ mt: 2 }}>
                         {timeSlots?.length > 0 ? (
@@ -961,6 +964,8 @@ const DoctorsCard = ({ searchedDoctores, childIsLoading }) => {
                           </>
                         )}
                     </>
+                  ) : (
+                    <Typography variant="h4" sx={{ textAlign: 'left', p: 2 }}>Loading...</Typography>
                   )}
 
                   {isModalBookOpen && (
@@ -1070,8 +1075,8 @@ function TermsPopup({ isTemModal, handleTermSubmit, handleCloseTermModal, termMe
 
   const [open, setOpen] = useState(isTemModal);
   const [isChecked, setIsChecked] = useState(false)
-  
-  const style = { position: 'absolute', top: '50%', left: '50%',  transform: 'translate(-50%, -50%)',  width: '30%', bgcolor: 'background.paper', border: '2px solid #000', boxShadow: 24,pt: 2,px: 4,pb: 3 };
+
+  const style = { position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '30%', bgcolor: 'background.paper', border: '2px solid #000', boxShadow: 24, pt: 2, px: 4, pb: 3 };
 
   const handleClose = () => {
     setOpen(false);
@@ -1113,10 +1118,10 @@ function TermsPopup({ isTemModal, handleTermSubmit, handleCloseTermModal, termMe
             </FormGroup>
             <Stack direction="row" spacing={5}>
               <Button variant="contained" style={{ justifyContent: "flex-start" }} color="error" onClick={() => handleClose()}>
-              Cancel
+                Cancel
               </Button>
               <Button variant="contained" disabled={!(isChecked)} style={{ justifyContent: "flex-end" }} color="success" onClick={() => handlesubmit()} >
-              Submit
+                Submit
               </Button>
             </Stack>
           </Box>

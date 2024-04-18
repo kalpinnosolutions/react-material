@@ -109,10 +109,10 @@ const ChangePin = (props, { ...others }) => {
               }}
 
               validationSchema={Yup.object().shape({
-                mobilenumber: Yup.string().max(10).required('Mobile No is required'),
+                // mobilenumber: Yup.string().max(10).required('Mobile No is required'),
                 currentPin: Yup.string().max(4).required('Current Pin is required'),
                 newPin: Yup.string().max(4).required('New Pin is required'),
-                confirmPin: yup.string().oneOf([yup.ref('newPin'), null], "Confirm Pin don't match").required('Confirm Pin is required')
+                confirmPin: Yup.string().oneOf([Yup.ref('newPin'), null], "Confirm Pin don't match").required('Confirm Pin is required')
               })}
 
               onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {

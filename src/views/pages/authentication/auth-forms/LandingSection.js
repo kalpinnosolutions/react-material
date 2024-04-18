@@ -27,7 +27,7 @@ const FirebaseLogin = () => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
- const LoginLink = config.basename+'/login';
+//  const LoginLink = config.basename+'/login';
  const RegisterLink = '/register';
 
   return (
@@ -44,7 +44,7 @@ const FirebaseLogin = () => {
                   <Typography color={config.color.prime} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
                     Hi, Welcome to GKNM
                   </Typography>
-                  <PrimeGreenButton disableElevation fullWidth size="large" variant="contained" href={LoginLink}>
+                  <PrimeGreenButton component={Link} to="/login" disableElevation fullWidth size="large" variant="contained">
                     Login
                   </PrimeGreenButton>
                 </Stack>

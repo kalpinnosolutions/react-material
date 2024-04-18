@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { Grid } from '@mui/material';
 
 import Paper from '@mui/material/Paper';
@@ -20,7 +20,7 @@ import Chip from '@mui/material/Chip';
 const ALink = styled(Chip)(() => ({
     padding: "2px",
     textAlign: 'center',
-    border: 1, 
+    border: 1,
     backgroundColor: '#17A54A',
     color: '#fff',
     margin: "10px",
@@ -37,7 +37,7 @@ const ALink = styled(Chip)(() => ({
 const tabClass = {
     padding: "2px",
     textAlign: 'center',
-    border: 1, 
+    border: 1,
     backgroundColor: '#2F3490',
     color: '#fff',
     margin: "10px",
@@ -54,7 +54,7 @@ const tabClass = {
 const activeTabClass = {
     padding: "2px",
     textAlign: 'center',
-    border: 1, 
+    border: 1,
     backgroundColor: '#17A54A',
     color: '#fff',
     margin: "10px",
@@ -69,9 +69,21 @@ const activeTabClass = {
 }
 
 
-export default function DepartmentCard({departmentList, searchDoctorList}) {
+export default function DepartmentCard({ departmentList, searchDoctorList }) {
 
-    const [activeTab, setActiveTab] = React.useState('All');
+    const [activeTab, setActiveTab] = useState('CARDIOLOGY');
+
+
+    useEffect(() => {
+
+        if (departmentList.length > 0) {
+            departmentList.map((dept) => {
+                if(dept?.label === activeTab){
+                    searchDoctorList(dept?.id)
+                }
+            })
+        }
+    }, []);
 
     const handleClick = (code, tab) => {
         setActiveTab(tab)
@@ -81,10 +93,10 @@ export default function DepartmentCard({departmentList, searchDoctorList}) {
     return (
         <Paper elevation={3} sx={{ p: 2 }}>
             <Grid container spacing={{ xs: 1, md: 1 }} columns={{ xs: 6, sm: 8, md: 12 }}>
-                <ALink label='All' variant="outlined" clickable={true} onClick={ () => handleClick("", "All") } style={activeTab === "All" ? activeTabClass : tabClass} />
+                {/* <ALink label='All' variant="outlined" clickable={true} onClick={ () => handleClick("", "All") } style={activeTab === "All" ? activeTabClass : tabClass} /> */}
                 {departmentList && departmentList.length > 0 && (
                     departmentList.map((dept, index) => (
-                        <ALink label={dept?.label} variant="outlined" clickable={true} key={index} onClick={ () => handleClick(dept?.id, dept?.label) } style={activeTab === dept?.label ? activeTabClass : tabClass} />
+                        <ALink label={dept?.label} variant="outlined" clickable={true} key={index} onClick={() => handleClick(dept?.id, dept?.label)} style={activeTab === dept?.label ? activeTabClass : tabClass} />
                     ))
                 )}
             </Grid>

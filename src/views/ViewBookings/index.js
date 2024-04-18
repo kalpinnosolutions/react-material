@@ -17,20 +17,9 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import CancelIcon from '@mui/icons-material/Cancel';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
-
-// material-ui
-// import { useNavigate } from "react-router-dom";
-
-// project imports
-// import EarningCard from './EarningCard';
-// import TotalOrderLineChartCard from './TotalOrderLineChartCard';
-// import { gridSpacing } from 'store/constant';
-// import ViewBookingCard from 'views/dashboard/Default/Cards/ViewBookingCard';
-
 import BookingCard from './BookingCard';
 import CustomLoader from '../../ui-component/CustomLoader';
-// import Paper from '@mui/material/Paper';
-// import CardList from './CardList';
+
 
 import {
   fetchBookingNow,
@@ -44,14 +33,8 @@ import {
 } from "../../assets/data";
 
 import { useSelector } from "react-redux";
-import {
-  addDays,
-  differenceInYears,
-  format,
-  parse,
-  parseISO
-} from "date-fns";
-//import Calendar from "react-calendar";
+import {addDays, differenceInYears, format, parse, parseISO } from "date-fns";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -456,13 +439,12 @@ const Dashboard = () => {
     setShowSlot(true);
     setHandleLoadingSlot(true);
 
-
-
     setSelectedDates((prevSelectedDates) => {
+      
       const index = prevSelectedDates.findIndex(
         (date) => date.getTime() === selectedDate.getTime()
       );
-
+      
       if (index === -1) {
         // If the date is not in the array, add it
         return [selectedDate];
@@ -795,7 +777,7 @@ const Dashboard = () => {
                       />
                     </Stack>
                   </Box>
-
+                  
                   {showSlot && (
                     <>
                       <Grid container direction="row" spacing={{ xs: 1, md: 1 }} columns={{ xs: 6, sm: 8, md: 10 }} sx={{ mt: 2 }}>
@@ -854,27 +836,27 @@ const Dashboard = () => {
                           </Grid>
                         )}
                       </Grid>
-                    </>
-                  )}
+                    
+                    {timeSlots?.length > 0 && (
+                      <>
+                        <Typography id="modal-modal-description" sx={{ textAlign: 'left', mt: 1 }}>
+                          Selected Appointment Date: &nbsp;
+                          {format(new Date(date), "dd/MM/yyyy")} &nbsp;
+                          {/* &nbsp;{formatAsDDMMYYYY(date)}{" "} */}
+                          {selectedTimeHR?.toString().padStart(2, "0")}{" "}
+                          {selectedTimeHR && ":"}{" "}
+                          {selectedTime?.toString().padStart(2, "0")}
+                        </Typography>
 
-                  {timeSlots?.length > 0 && (
-                    <>
-                      <Typography id="modal-modal-description" sx={{ textAlign: 'left', mt: 1 }}>
-                        Selected Appointment Date: &nbsp;
-                        {format(new Date(date), "dd/MM/yyyy")} &nbsp;
-                        {/* &nbsp;{formatAsDDMMYYYY(date)}{" "} */}
-                        {selectedTimeHR?.toString().padStart(2, "0")}{" "}
-                        {selectedTimeHR && ":"}{" "}
-                        {selectedTime?.toString().padStart(2, "0")}
-                      </Typography>
-
-                      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3, width: "100%" }}>
-                        <Stack direction="row" spacing={1}>
-                          <Button variant="contained" style={{ justifyContent: "flex-start" }} onClick={() => handleResidualClick()}>
-                            Reschedule
-                          </Button>
-                        </Stack>
-                      </Box>
+                        <Box sx={{ display: "flex", justifyContent: "space-between", mt: 3, width: "100%" }}>
+                          <Stack direction="row" spacing={1}>
+                            <Button variant="contained" style={{ justifyContent: "flex-start" }} onClick={() => handleResidualClick()}>
+                              Reschedule
+                            </Button>
+                          </Stack>
+                        </Box>
+                      </>
+                    )}
                     </>
                   )}
                 </Box>
