@@ -33,7 +33,7 @@ import {
 } from "../../assets/data";
 
 import { useSelector } from "react-redux";
-import {addDays, differenceInYears, format, parse, parseISO } from "date-fns";
+import { addDays, differenceInYears, format, parse, parseISO } from "date-fns";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -72,6 +72,29 @@ const blueClass = {
     fontWeight: 600
   }
 };
+
+const bookbtn = { 
+  width: 56, 
+  height: 56, 
+  cursor: 'pointer', 
+  backgroundColor: '#90caf903',
+  '&:hover': {
+    color: "#17A54A",
+    fontWeight: 600
+  }
+}
+
+const bookdisbtn = { 
+  width: 56, 
+  height: 56, 
+  cursor: 'noDrag', 
+  color: '#697586',
+  backgroundColor: '#90caf903',
+  '&:hover': {
+    color: "#697586",
+    fontWeight: 600
+  }
+}
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -272,9 +295,9 @@ const Dashboard = () => {
   };
 
   const handleSubmitClick = async () => {
+    setIsModalOpen(false);
 
     if (isReShedule === "reSchedule") {
-
       const isAppAllowed = await checkIsApptAllowed('R', selectedAppDate);
 
       if (isAppAllowed?.ReturnVal == false) {
@@ -295,7 +318,6 @@ const Dashboard = () => {
       setIsCalenderModalOpen(true);
 
       const DocCd = reschedualData?.ApptDocCd;
-
       const response = await fetchCalenderDateAV(DocCd);
 
       if (response !== "Not Authorized User") {
@@ -440,11 +462,11 @@ const Dashboard = () => {
     setHandleLoadingSlot(true);
 
     setSelectedDates((prevSelectedDates) => {
-      
+
       const index = prevSelectedDates.findIndex(
         (date) => date.getTime() === selectedDate.getTime()
       );
-      
+
       if (index === -1) {
         // If the date is not in the array, add it
         return [selectedDate];
@@ -704,139 +726,135 @@ const Dashboard = () => {
                 appointment.ApptStsDesc === "Rescheduled" ||
                 appointment.ApptStsDesc === "Cancelled"
                 ? activeTab === "upcoming" && (
-                  <Avatar alt={"name"} sx={{ width: 56, height: 56, cursor: 'noDrag', backgroundColor: '#90caf903' }} variant='square'
+                  <Avatar alt={"name"} sx={bookdisbtn} variant='square'
                   ><CalendarMonthOutlinedIcon sx={{ width: 45, height: 45 }} /></Avatar>
                 )
                 : activeTab === "upcoming" && (
-                  <Avatar onClick={() => handleResidual(appointment)} alt={"name"} sx={{ width: 56, height: 56, cursor: 'pointer', backgroundColor: '#90caf903' }} variant='square'
+                  <Avatar onClick={() => handleResidual(appointment)} alt={"name"} sx={bookbtn} variant='square'
                   ><CalendarMonthOutlinedIcon sx={{ width: 45, height: 45 }} /></Avatar>
                 )}
             </Stack>
           </CardActions>
-          {isModalOpen && (
-            <Modal
-              open={true}
-              aria-labelledby="child-modal-title"
-              aria-describedby="child-modal-description"
-            >
-              <Box sx={{ ...Optionstyle }}>
-                <Box style={{ justifyContent: 'center' }} sx={{ mt: 3 }}>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                  >
-                    <FormControlLabel onClick={() => toggleSelection("reSchedule")} value={'reSchedule'} control={<Radio />} label="Reschedule" />
-                    {selectedAppointmentStatus !== "Confirmed" && (
-                      <FormControlLabel onClick={() => toggleSelection("cancel")} value={'cancel'} control={<Radio />} label="Cancle" />
-                    )}
-                  </RadioGroup>
-                  <Stack direction="row" spacing={5}>
-                    <Button variant="contained" style={{ justifyContent: "flex-start" }} color="error" onClick={() => {
-                      setIsModalOpen(false);
-                      setIsCalenderModalOpen(false);
-                    }}>
-                      Cancel
-                    </Button>
-                    <Button variant="contained" style={{ justifyContent: "flex-end" }} color="success" onClick={() => handleSubmitClick()} >
-                      Submit
-                    </Button>
+
+          <Modal
+            open={isModalOpen}
+            aria-labelledby="child-modal-title"
+            aria-describedby="child-modal-description"
+          >
+            <Box sx={{ ...Optionstyle }}>
+              <Box style={{ justifyContent: 'center' }} sx={{ mt: 3 }}>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-row-radio-buttons-group-label"
+                  name="row-radio-buttons-group"
+                >
+                  <FormControlLabel onClick={() => toggleSelection("reSchedule")} value={'reSchedule'} control={<Radio />} label="Reschedule Appointment" />
+                  {selectedAppointmentStatus !== "Confirmed" && (
+                    <FormControlLabel onClick={() => toggleSelection("cancel")} value={'cancel'} control={<Radio />} label="Cancel Appointment" />
+                  )}
+                </RadioGroup>
+                <Stack direction="row" spacing={5}>
+                  <Button variant="contained" style={{ justifyContent: "flex-start" }} color="error" onClick={() => {
+                    setIsModalOpen(false);
+                  }}>
+                    Cancel
+                  </Button>
+                  <Button variant="contained" style={{ justifyContent: "flex-end" }} color="success" onClick={() => handleSubmitClick()} >
+                    Submit
+                  </Button>
+                </Stack>
+              </Box>
+            </Box>
+          </Modal>
+
+          <Modal
+            open={isCalenderModalOpen}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+
+            <Grid container direction="row" justifyContent="center" alignItems="center">
+              <Box sx={style} >
+                <Typography id="modal-modal-description" sx={{ mt: 2, textAlign: 'right' }} >
+                  <Link href="#" underline="none" color="#f3212f" onClick={() => handleCloseModal()}><CancelIcon /></Link>
+                </Typography>
+
+                <Typography id="modal-modal-description" variant="h2" sx={{ textAlign: 'center', p: 2 }}>
+                  {selectedDoctor}
+                </Typography>
+
+                <Box style={{ justifyContent: 'center' }} sx={{ mb: 2 }}>
+                  <Stack direction="row">
+                    <Calendar
+                      style={{ width: "100% !important" }}
+                      onChange={onChangeCalander}
+                      tileClassName={tileClassName}
+                      navigationAriaLabel=" "
+                      prev2AriaLabel=" "
+                      next2AriaLabel=" "
+                    />
                   </Stack>
                 </Box>
-              </Box>
-            </Modal>
-          )}
 
-          {isCalenderModalOpen && (
+                {showSlot && (
+                  <>
+                    <Grid container direction="row" spacing={{ xs: 1, md: 1 }} columns={{ xs: 6, sm: 8, md: 10 }} sx={{ mt: 2 }}>
+                      {timeSlots?.length > 0 ? (
+                        <>
+                          {timeSlots?.map((slot, index) => {
+                            const padWithZero = (num) =>
+                              num.toString().padStart(2, "0");
+                            return (
+                              <Grid item xs={2} key={index}>
+                                <Item>
+                                  <Chip
+                                    label={`${padWithZero(slot?.SchtimeFrmHrs)} : ${padWithZero(slot.SchtimeFrmMins)}`}
+                                    onClick={() =>
+                                    (slot?.ReqStsCd === 1 ? handleAlreadyBook()
+                                      : slot?.ApptNo > 0 ? (slot?.AptmSts === 3 || slot?.AptmSts === 4) ? handleAlreadyBook()
+                                        : handleTimeButtonClick(
+                                          slot?.SchtimeFrmMins,
+                                          slot?.SchtimeFrmHrs,
+                                          slot)
 
-            <Modal
-              open={true}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
+                                        : slot?.AptmSts === 6 ? false
 
-              <Grid container direction="row" justifyContent="center" alignItems="center">
-                <Box sx={style} >
-                  <Typography id="modal-modal-description" sx={{ mt: 2, textAlign: 'right' }} >
-                    <Link href="#" underline="none" color="#f3212f" onClick={() => handleCloseModal()}><CancelIcon /></Link>
-                  </Typography>
-
-                  <Typography id="modal-modal-description" variant="h2" sx={{ textAlign: 'center', p: 2 }}>
-                    {selectedDoctor}
-                  </Typography>
-
-                  <Box style={{ justifyContent: 'center' }} sx={{ mb: 2 }}>
-                    <Stack direction="row">
-                      <Calendar
-                        style={{ width: "100% !important" }}
-                        onChange={onChangeCalander}
-                        tileClassName={tileClassName}
-                        navigationAriaLabel=" "
-                        prev2AriaLabel=" "
-                        next2AriaLabel=" "
-                      />
-                    </Stack>
-                  </Box>
-                  
-                  {showSlot && (
-                    <>
-                      <Grid container direction="row" spacing={{ xs: 1, md: 1 }} columns={{ xs: 6, sm: 8, md: 10 }} sx={{ mt: 2 }}>
-                        {timeSlots?.length > 0 ? (
-                          <>
-                            {timeSlots?.map((slot, index) => {
-                              const padWithZero = (num) =>
-                                num.toString().padStart(2, "0");
-                              return (
-                                <Grid item xs={2} key={index}>
-                                  <Item>
-                                    <Chip
-                                      label={`${padWithZero(slot?.SchtimeFrmHrs)} : ${padWithZero(slot.SchtimeFrmMins)}`}
-                                      onClick={() =>
-                                      (slot?.ReqStsCd === 1 ? handleAlreadyBook()
-                                        : slot?.ApptNo > 0 ? (slot?.AptmSts === 3 || slot?.AptmSts === 4) ? handleAlreadyBook()
                                           : handleTimeButtonClick(
                                             slot?.SchtimeFrmMins,
                                             slot?.SchtimeFrmHrs,
-                                            slot)
+                                            slot))
+                                    }
+                                    sx={slot?.ReqStsCd === 1 ? disableClass
+                                      : slot?.ApptNo > 0 ? (slot?.AptmSts === 3 || slot?.AptmSts === 4) ? disableClass
+                                        : selectedTime ===
+                                          slot?.SchtimeFrmMins &&
+                                          selectedTimeHR ===
+                                          slot?.SchtimeFrmHrs
+                                          ? greenClass
+                                          : blueClass
 
-                                          : slot?.AptmSts === 6 ? false
+                                        : slot?.AptmSts === 6 ? disableClass
 
-                                            : handleTimeButtonClick(
-                                              slot?.SchtimeFrmMins,
-                                              slot?.SchtimeFrmHrs,
-                                              slot))
-                                      }
-                                      sx={slot?.ReqStsCd === 1 ? disableClass
-                                        : slot?.ApptNo > 0 ? (slot?.AptmSts === 3 || slot?.AptmSts === 4) ? disableClass
                                           : selectedTime ===
                                             slot?.SchtimeFrmMins &&
                                             selectedTimeHR ===
                                             slot?.SchtimeFrmHrs
                                             ? greenClass
                                             : blueClass
+                                    }
+                                  />
+                                </Item>
+                              </Grid>
+                            );
+                          })}
+                        </>
+                      ) : (
+                        <Grid item xs={12}>
+                          <Typography id="modal-modal-description" variant="h4" sx={{ textAlign: 'left', p: 2 }}>No Slots Available</Typography>
+                        </Grid>
+                      )}
+                    </Grid>
 
-                                          : slot?.AptmSts === 6 ? disableClass
-
-                                            : selectedTime ===
-                                              slot?.SchtimeFrmMins &&
-                                              selectedTimeHR ===
-                                              slot?.SchtimeFrmHrs
-                                              ? greenClass
-                                              : blueClass
-                                      }
-                                    />
-                                  </Item>
-                                </Grid>
-                              );
-                            })}
-                          </>
-                        ) : (
-                          <Grid item xs={12}>
-                            <Typography id="modal-modal-description" variant="h4" sx={{ textAlign: 'left', p: 2 }}>No Slots Available</Typography>
-                          </Grid>
-                        )}
-                      </Grid>
-                    
                     {timeSlots?.length > 0 && (
                       <>
                         <Typography id="modal-modal-description" sx={{ textAlign: 'left', mt: 1 }}>
@@ -857,19 +875,18 @@ const Dashboard = () => {
                         </Box>
                       </>
                     )}
-                    </>
-                  )}
-                </Box>
-              </Grid>
-            </Modal>
-          )}
+                  </>
+                )}
+              </Box>
+            </Grid>
+          </Modal>
         </Card>
       </Grid>
     );
   };
 
   return (
-    <BookingCard title="Family Members" btn1title="History" btn2title="Refresh" btn3title="Upcomming" btnoneaction={handleTabChange} btntwoaction={handleTabChange} btnthreeaction={handleTabChange}>
+    <BookingCard title="Family Members" btn1title="History" btn2title="Refresh" btn3title="Upcoming" btnoneaction={handleTabChange} btntwoaction={handleTabChange} btnthreeaction={handleTabChange}>
 
       {activeTab === "upcoming" && upcomingAppointments.length > 0 && (
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
@@ -888,7 +905,18 @@ const Dashboard = () => {
       )}
 
       {loading && (<CustomLoader />)}
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="dark" />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        //pauseOnFocusLoss
+        draggable
+        // pauseOnHover
+        theme="dark"
+      />
     </BookingCard>
   );
 };

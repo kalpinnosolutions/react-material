@@ -24,7 +24,7 @@ import AuthWrapper1 from '../AuthWrapper1';
 const boxStyle = {
   marginTop: "30%",
   height: "320px",
-  width: "320px",
+  width: "420px",
   display: "flex",
   alignItems: "center",
   padding: "2px",
@@ -34,7 +34,7 @@ const boxStyle = {
 const boxStyle2 = {
   marginTop: "30%",
   height: "320px",
-  width: "320px",
+  width: "420px",
   display: "flex",
   alignItems: "center",
   padding: "12px",
@@ -85,10 +85,10 @@ const Login = () => {
   return (
     <AuthWrapper1>
       <Grid container direction="row" sx={{ minHeight: '100vh', backgroundImage: `url(${BackGroundImg})`, backgroundSize: '100% 100%', backgroundPosition: "center", backgroundRepeat: "no-repeat, repeat" }} >
-        <Grid item xs={4}>
+        <Grid item xs={4} display={{ xs: 'block', md: 'block', sm: 'none' }}>
           <Box style={boxStyle2} >
             <div className="marquee-container">
-              <div className="marquee" style={{ color: "#fff", backgroundColor: '#06ae92d4', fontSize: "18px", lineHeight: "30px" }}>
+              <div className="marquee" style={{ color: "#fff", backgroundColor: '#06ae92d4', fontSize: "18px", lineHeight: "30px", padding: "20px" }}>
               {(rightPanelText !== "")? rightPanelText.replace(/\n/g, ". ") : ""}
               </div>
             </div>
@@ -101,10 +101,10 @@ const Login = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={4} display={{ xs: 'block', md: 'block', sm: 'none' }}>
           <Box style={boxStyle} >
             <div className="marquee-container">
-              <div className="marquee" style={{ color: "#fff", backgroundColor: '#06ae92d4', fontSize: "18px", lineHeight: "30px" }}>
+              <div className="marquee" style={{ color: "#fff", backgroundColor: '#06ae92d4', fontSize: "18px", lineHeight: "30px", padding: "20px"}}>
               {(leftPanelText !== "")? leftPanelText.replace(/\n/g, ". ") : ""}
               </div>
             </div>

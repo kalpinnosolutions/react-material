@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import BILL from './BILL';
 import RECEIPT from './RECEIPT';
 import REFUND from './REFUND';
-import DEPOSIT from './DEPOSIT';
+import DEPOSITE from './DEPOSITE';
 
 const gridSpacing = 10;
 
@@ -51,13 +51,13 @@ const ViewReceipts = () => {
                   <TabList onChange={handleChange} aria-label="lab API tabs example" centered spacing={gridSpacing}>
                     <Tab label="BILL" value="bill" />
                     <Tab label="RECEIPT" value="receipt" />
-                    <Tab label="DEPOSIT" value="deposit" />
+                    <Tab label="DEPOSITE" value="deposite" />
                     <Tab label="REFUND" value="refund" />
                   </TabList>
                 </Box>
                 <TabPanel value="bill"><BILL/></TabPanel>
                 <TabPanel value="receipt"><RECEIPT /></TabPanel>
-                <TabPanel value="deposit"><DEPOSIT /></TabPanel>
+                <TabPanel value="deposite"><DEPOSITE /></TabPanel>
                 <TabPanel value="refund"><REFUND /></TabPanel>
               </TabContext>
               </Box>

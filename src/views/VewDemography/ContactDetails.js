@@ -33,7 +33,7 @@ const ContactDetails = ({formData}) => {
                         <TextField id="outlined" fullWidth label="State"  value={(formData?.state?.value)? formData?.state?.value : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
-                        <TextField id="outlined" fullWidth label="Country"  value={(formData?.country?.value)? formData?.lastName?.value : '-'} sx={disabled}/>
+                        <TextField id="outlined" fullWidth label="Country"  value={(formData?.country?.value)? formData?.country?.value : '-'} sx={disabled}/>
                     </Grid>
                     <Grid item xs={6}>
                         <TextField id="outlined" fullWidth label="Phn(H)"  value={(formData?.phoneHome)? formData?.phoneHome : '-'} sx={disabled}/>

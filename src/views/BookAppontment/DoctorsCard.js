@@ -68,17 +68,17 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const style = {
   position: "absolute",
-  top: "50%",
+  top: "45%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "38%",
+  width: "45%",
   height: "100%",
-  maxHeight: "620px",
+  maxHeight: "820px",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   display: 'block',
-  overflowY: 'scroll',
+  //overflowY: 'scroll',
   p: 4,
 };
 
@@ -818,7 +818,7 @@ const DoctorsCard = ({ searchedDoctores, childIsLoading }) => {
                   title={doctor?.label}
                 />
                 <CardContent>
-                  <CustomTypography gutterBottom component="div" color="secondary">{doctor?.label}</CustomTypography>
+                  <CustomTypography gutterBottom component="div" sx={{fontSize: 'h5.fontSize'}} color="secondary">{doctor?.label}</CustomTypography>
                   {/* <Typography sx={{ textAlign: 'center', pb: 2 }} variant="h5" color="text.secondary">MD, D.M (Cardiology), MNAMS</Typography> */}
                   <Typography sx={{ textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} variant="h5" color="text.secondary" >{doctor?.SpltyName}</Typography>
                 </CardContent>
