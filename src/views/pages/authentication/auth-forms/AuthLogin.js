@@ -366,6 +366,7 @@ const FirebaseLogin = ({ ...others }) => {
                             e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 10)
                           }}
                           inputProps={{ maxLength: 10 }}
+                          inputMode="numeric"
                         />
                         {touched.phoneno && errors.phoneno && (
                           <FormHelperText error id="standard-weight-helper-text-email-login">
@@ -405,6 +406,7 @@ const FirebaseLogin = ({ ...others }) => {
                           }
                           label="Pin"
                           inputProps={{ maxLength: 4 }}
+                          inputMode="numeric"
                         />
 
                         {touched.pin && errors.pin && (

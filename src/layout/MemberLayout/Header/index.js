@@ -13,6 +13,9 @@ import { Link } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 // import LogoutIcon from '@mui/icons-material/Logout';
 import Tooltip from '@mui/material/Tooltip';
+// import { useNavigate } from 'react-router-dom';
+// import { confirmAlert } from 'react-confirm-alert'; // Import
+// import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 // assets
 // import { IconMenu2 } from '@tabler/icons-react';
@@ -21,6 +24,24 @@ import Tooltip from '@mui/material/Tooltip';
 
 const Header = () => {
   const theme = useTheme();
+  // const navigate = useNavigate();
+
+  // const handleLogout = () => {
+  //   confirmAlert({
+  //     title: 'Logout',
+  //     message: 'Are you sure you want to logout?',
+  //     buttons: [
+  //       {
+  //         label: 'Yes',
+  //         onClick: () => navigate('/logout')
+  //       },
+  //       {
+  //         label: 'No',
+  //         onClick: () => {}
+  //       }
+  //     ]
+  //   });
+  // }
 
   return (
     <>
@@ -68,7 +89,8 @@ const Header = () => {
       <NotificationSection />
       {/* <ProfileSection /> */}
       <Stack direction="row">
-        <Link fullWidth size="small" variant="contained" component={Link} to="/logout" style={{ fontWeight: 600, textDecoration: 'none', color: '#2F3490'}}>
+        {/* <Link fullWidth size="small" variant="contained" component={Link} onClick={() => {handleLogout()}}  style={{ fontWeight: 600, textDecoration: 'none', color: '#2F3490'}}> */}
+        <Link fullWidth size="small" variant="contained" component={Link} to="/logout"  style={{ fontWeight: 600, textDecoration: 'none', color: '#2F3490'}}>
           <Tooltip title="Logout">
            Logout
           </Tooltip>
